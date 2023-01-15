@@ -1,0 +1,19 @@
+body {
+  color: red;
+  background: rgb(191,197,247);
+  background: linear-gradient(151deg, rgba(191,197,247,1) 0%, rgba(197,252,216,1) 52%, rgba(255,189,189,1) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.logo a {
+  color: green;
+}
+nav a {
+  color: orange;
+}
+header {
+  border-bottom: 0.2rem dashed yellow;
+}
+footer {
+  border-top: 0.2rem dashed yellow;
+}

@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
+import Data.Functor ((<&>))
 import Data.Monoid (mappend)
 import Hakyll
 
@@ -19,7 +20,14 @@ main = hakyllWith config $ do
 
   match "css/*" $ do
     route idRoute
-    compile compressCssCompiler
+    compile $
+      getResourceString
+        >>= loadAndApplyTemplate "templates/common.css" cssCtx
+        >>= relativizeUrls . fmap compressCss
+
+  match "js/*" $ do
+    route idRoute
+    compile copyFileCompiler
 
   match (fromList ["about.rst", "contact.markdown"]) $ do
     route $ setExtension "html"
@@ -70,3 +78,6 @@ postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y"
     `mappend` defaultContext
+
+cssCtx :: Context String
+cssCtx = defaultContext
